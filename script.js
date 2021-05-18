@@ -1,4 +1,4 @@
-var exampleTodoList = [
+var exampleTodos = [
     {
         name: "task1",
         description: "descriptionTask1"
@@ -13,29 +13,24 @@ var exampleTodoList = [
     }
 ];
 
-updateHtmlTable(exampleTodoList);
+updateHtmlTable(exampleTodos);
 
-function updateHtmlTable(todoList) {
-     //foreach todoList
-        //generate <tr><td> task1 </td> <td> description2 </td> </tr>
-        //merge generate table html
-    let generateHTml = "";
-    for (let i = 0; i < todoList.length; i++) {
-        const todo = todoList[i];
-        let tableRow = `<tr><td>${todo.name}</td><td>${todo.description}</td></tr>`;
+function updateHtmlTable(todos) {
+  
+    let generatedHtml = "";
+    for (let i = 0; i < todos.length; i++) {
+        const todo = todos[i];
+        //let tableRow = `<tr><td>${todo.name}</td><td>${todo.description}</td></tr>`;
+        let tableRow = `<tr>
+                            <td>${todo.name}</td>
+                            <td>${todo.description}</td>
+                        </tr>`
+        console.log("\`text\"")                 
 
-        generateHTml = generateHTml + tableRow;
+        generatedHtml = generatedHtml + tableRow;
     }
 
-     //get table html element
-    //get tbody of that (table)
-    //modify tbody.innerHtml into our newly generated one
-   
-    let tableElement = document.getElementsByClassName("table")[0];
+    let bodyElement = document.getElementById("tasks-table");
 
-    let bodyElement = tableElement.getElementsByTagName('tbody')[0];
-
-    bodyElement.innerHTML = generateHTml;
-    
-   
+    bodyElement.innerHTML = generatedHtml;
 }
