@@ -18,13 +18,13 @@
                 <form>
                     <div class="mb-3">
                         <label class="form-label">Todo Name</label>
-                        <input type="text" class="form-control" placeholder="name">
+                        <input id="todo-name" type="text" class="form-control" placeholder="name">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Description</label>
-                        <textarea class="form-control" placeholder="Insert description.."></textarea>
+                        <textarea id="todo-description" class="form-control" placeholder="Insert description.."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button onclick="addNewTodo(); return false;" class="btn btn-primary">Submit</button>
                   </form>
               </div>
               <div class="col">
