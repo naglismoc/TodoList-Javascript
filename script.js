@@ -4,9 +4,9 @@ var todos = [
     {}
 ];
 
-updateHtmlTable();
+updateHtmlTable(todos);
 
-function updateHtmlTable() {
+function updateHtmlTable(todos) {
   
     let generatedHtml = "";
     for (let i = 0; i < todos.length; i++) {
@@ -39,5 +39,5 @@ function addNewTodo() {
     todos.push(todo);
 
     //5 Call UpdateHtmlTable function
-    updateHtmlTable();
+    updateHtmlTable(todos);
 }
