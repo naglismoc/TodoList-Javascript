@@ -1,13 +1,10 @@
-var todos = [
-    {},
-    {},
-    {}
+todos = [
 ];
 
-updateHtmlTable(todos);
+let globalVariable = 5;
+// pass by reference or pass by value;
 
-function updateHtmlTable(todos) {
-  
+function updateHtmlTable() {
     let generatedHtml = "";
     for (let i = 0; i < todos.length; i++) {
         const todo = todos[i];
@@ -27,17 +24,19 @@ function updateHtmlTable(todos) {
 
 function addNewTodo() {
     //1 Get Name from document variable in form
-    let name = document.getElementById("todo-name").value;
+    let nameValue = document.getElementById("todo-name").value;
     //2 Get Description from document variable
     let description = document.getElementById("todo-description").value;
     //3 create todo object with received name and description
     var todo = {
-        name: name,
+        name: nameValue,
         description: description
     }
     //4 add new todo to todoslist
     todos.push(todo);
 
     //5 Call UpdateHtmlTable function
-    updateHtmlTable(todos);
+    updateHtmlTable();
 }
+
+updateHtmlTable();
