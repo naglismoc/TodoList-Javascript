@@ -23,7 +23,7 @@ function updateHtmlTable() {
 }
 
 function addNewTodo() {
-    if(!inputValidation()){
+    if(!inputValidation2()){
         return;
     }
 
@@ -59,7 +59,7 @@ function inputValidation() {
     }
 
     if( !isValid("todo-description") ){
-        document.getElementById("error").innerHTML += "<h1>Forma negali buti tuscia</h1>";
+        document.getElementById("error").innerHTML += '<h1 >Forma negali buti tuscia</h1>';
     }
     
     if( !isValid("todo-name") ){
@@ -69,18 +69,28 @@ function inputValidation() {
         return false;
 }
 
-function inputValidationV2() {
+function inputValidation2() {
     document.getElementById("error").innerHTML = "";
+    document.getElementById("error").classList.remove('success');
+    document.getElementById("error").classList.remove('error');
 
     if( !isValid("todo-name") &&
     !isValid("todo-description") ){
         document.getElementById("error").innerHTML += "<h1>Forma negali buti tuscia</h1>";
+        document.getElementById("error").classList.add('error');
+        return false;
     }
 
     if( !isValid("todo-name") &&
     isValid("todo-description") ){
         document.getElementById("error").innerHTML += "<h1>Forma negali buti be pavadinimo</h1>";
+        document.getElementById("error").classList.add('error');
+        return false;
     }
+    document.getElementById("error").classList.add('success');
+    document.getElementById("error").innerHTML += "<h1>Jums pavyko prideti irasa</h1>";
+       
+    return true;
 }
 
 function isValid(id) {
