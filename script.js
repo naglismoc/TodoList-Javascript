@@ -4,6 +4,8 @@ todos = [
 let globalVariable = 5;
 // pass by reference or pass by value;
 
+let id = 0;
+
 function updateHtmlTable() {
     let generatedHtml = "";
     for (let i = 0; i < todos.length; i++) {
@@ -11,7 +13,11 @@ function updateHtmlTable() {
         //let tableRow = `<tr><td>${todo.name}</td><td>${todo.description}</td></tr>`;
         let tableRow = `<tr>
                             <td>${todo.name}</td>
-                            <td>${todo.description}</td>
+                            <td>${todo.description}</td>`+
+                            //<td><div class="delete btn btn-danger" id="${todo.id}">trinti irasa</div></td>
+                            `<td>
+                                <div class="delete btn btn-danger" onclick="deleteEntry(${todo.id});">trinti irasa</div>
+                            </td>
                         </tr>`               
 
         generatedHtml = generatedHtml + tableRow;
@@ -20,24 +26,26 @@ function updateHtmlTable() {
     let bodyElement = document.getElementById("tasks-table");
 
     bodyElement.innerHTML = generatedHtml;
+
 }
 
 function addNewTodo() {
     if(!inputValidation2()){
         return;
     }
-
+    id++;
+    console.log(todos);
     //1 Get Name from document variable in form
     let nameValue = document.getElementById("todo-name").value;
     //2 Get Description from document variable
     let description = document.getElementById("todo-description").value;
     //3 create todo object with received name and description
     var todo = {
+        id: id,
         name: nameValue,
         description: description
     }
     //4 add new todo to todoslist
-    console.log(todos);
     todos.push(todo);
     
     //5 Call UpdateHtmlTable function
@@ -99,4 +107,16 @@ function isValid(id) {
         return false;
     }
     return true;
+}
+
+function deleteEntry(id) {
+   console.log(id );
+   for (let i = 0; i < todos.length; i++) { 
+       if( todos[i].id == id){
+           console.log( todos[i]);
+           todos.splice(i,1);
+       }
+       
+   }
+   updateHtmlTable();
 }
