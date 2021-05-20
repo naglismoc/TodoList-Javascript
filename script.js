@@ -23,6 +23,10 @@ function updateHtmlTable() {
 }
 
 function addNewTodo() {
+    if(!inputValidation()){
+        return;
+    }
+
     //1 Get Name from document variable in form
     let nameValue = document.getElementById("todo-name").value;
     //2 Get Description from document variable
@@ -33,10 +37,56 @@ function addNewTodo() {
         description: description
     }
     //4 add new todo to todoslist
+    console.log(todos);
     todos.push(todo);
-
+    
     //5 Call UpdateHtmlTable function
+    clearForm();
     updateHtmlTable();
+    
+    document.getElementById('todo-name').focus();
 }
 
-updateHtmlTable();
+function clearForm() {
+    document.getElementById("todo-name").value = "";
+    document.getElementById("todo-description").value = "";
+}
+
+function inputValidation() {
+    document.getElementById("error").innerHTML = "";
+    if( isValid("todo-name") ){
+        return true;
+    }
+
+    if( !isValid("todo-description") ){
+        document.getElementById("error").innerHTML += "<h1>Forma negali buti tuscia</h1>";
+    }
+    
+    if( !isValid("todo-name") ){
+        document.getElementById("error").innerHTML += "<h1>Forma negali buti be pavadinimo</h1>";
+    }
+
+        return false;
+}
+
+function inputValidationV2() {
+    document.getElementById("error").innerHTML = "";
+
+    if( !isValid("todo-name") &&
+    !isValid("todo-description") ){
+        document.getElementById("error").innerHTML += "<h1>Forma negali buti tuscia</h1>";
+    }
+
+    if( !isValid("todo-name") &&
+    isValid("todo-description") ){
+        document.getElementById("error").innerHTML += "<h1>Forma negali buti be pavadinimo</h1>";
+    }
+}
+
+function isValid(id) {
+    
+    if(document.getElementById(id).value == ""){
+        return false;
+    }
+    return true;
+}
