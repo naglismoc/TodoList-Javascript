@@ -1,11 +1,23 @@
 todos = [
+    {   id: 1,
+        name: 1,
+        description: 'description'
+    },
+    {   id: 2,
+        name: 2,
+        description: 'description'
+    },
+    {   id: 3,
+        name: 3,
+        description: 'description'
+    }
 ];
 
 let globalVariable = 5;
 // pass by reference or pass by value;
 
-let id = 0;
-
+let id = 3;
+updateHtmlTable();
 function updateHtmlTable() {
     let generatedHtml = "";
     for (let i = 0; i < todos.length; i++) {
@@ -14,10 +26,10 @@ function updateHtmlTable() {
         let tableRow = `<tr>
                             <td>${todo.name}</td>
                             <td>${todo.description}</td>`+
-                            //<td><div class="delete btn btn-danger" id="${todo.id}">trinti irasa</div></td>
-                            `<td>
-                                <div class="delete btn btn-danger" onclick="deleteEntry(${todo.id});">trinti irasa</div>
-                            </td>
+                           `<td><div class="delete btn btn-danger" id="${todo.id}">trinti irasa</div></td>
+                            <td>`+
+                               // <div class="delete btn btn-danger" onclick="deleteEntry(${todo.id});">trinti irasa</div>
+                            `</td>
                         </tr>`               
 
         generatedHtml = generatedHtml + tableRow;
@@ -26,7 +38,7 @@ function updateHtmlTable() {
     let bodyElement = document.getElementById("tasks-table");
 
     bodyElement.innerHTML = generatedHtml;
-
+    activateDeleteBtns();
 }
 
 function addNewTodo() {
@@ -120,3 +132,16 @@ function deleteEntry(id) {
    }
    updateHtmlTable();
 }
+
+function activateDeleteBtns() {
+    let deleteBtns = document.getElementsByClassName('delete');
+
+    for (let i = 0; i < deleteBtns.length; i++) {
+        let btn = deleteBtns[i];
+        btn.addEventListener('click',function(){
+            deleteEntry(btn.id);
+        });
+    }
+}
+
+
