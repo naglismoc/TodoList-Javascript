@@ -44,7 +44,11 @@
                         <label class="form-label">Description</label>
                         <textarea id="todo-description" class="form-control" placeholder="Insert description.."></textarea>
                     </div>
+
+                    <input type="hidden" id="todo-id">
+                    
                     <button onclick="addNewTodo(); return false;" value="test" class="btn btn-primary">Submit</button>
+                    <button id="edit-btn" onclick="editTodo(); return false;" style="display: none;" class="btn btn-outline-warning">Save Edit</button>
                   </form>
               </div>
               <div class="col">
@@ -53,8 +57,7 @@
                       <tr>
                         <th scope="col">Task Name</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Delete</th>
-                    
+                        <th scope="col">Actions</th>
                       </tr>
                     </thead>
                     <tbody id="tasks-table">
