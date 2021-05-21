@@ -183,7 +183,7 @@ function activateDeleteBtns() {
 
 function activateEditBtns() {
     let editBtns = document.getElementsByClassName('edit');
-
+    
     for (let i = 0; i < editBtns.length; i++) {
         let btn = editBtns[i];
         btn.addEventListener('click',function(){
@@ -191,13 +191,3 @@ function activateEditBtns() {
         });
     }
 }
-
-
-
-/**
- * 1. Modify Table to contain new column -> X
- * 2. Update each task to contain Edit Button -> X
- * 3. 
- */
-
-
