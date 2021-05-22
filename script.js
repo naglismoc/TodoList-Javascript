@@ -24,9 +24,14 @@ function updateHtmlTable() {
         const todo = todos[i];
         //let tableRow = `<tr><td>${todo.name}</td><td>${todo.description}</td></tr>`;
         let tableRow = `<tr>
-        <td>${todo.name}</td>
-        <td>${todo.description}</td>`+
-        `<td><div class="delete btn btn-danger" id="${todo.id}">trinti irasa</div></td>
+
+                            <td>${todo.name}</td>
+                            <td>${todo.description}</td>`+
+                           `<td>
+                           <div class="edit btn btn-warning" id="edit-${todo.id}">Edit</div>
+                           <div class="delete btn btn-danger" id="${todo.id}">trinti irasa</div>
+                           </td>
+
                             <td>`+
                             // <div class="delete btn btn-danger" onclick="deleteEntry(${todo.id});">trinti irasa</div>
                             `</td>
@@ -39,6 +44,7 @@ function updateHtmlTable() {
     
     bodyElement.innerHTML = generatedHtml;
     activateDeleteBtns();
+    activateEditBtns();
 }
 
 function addNewTodo() {
@@ -121,6 +127,39 @@ function isValid(id) {
     return true;
 }
 
+function editEntry(id){
+    for (let i = 0; i < todos.length; i++) { 
+        if( `edit-${todos[i].id}` == id){
+            activateEditMode(todos[i]);
+        } 
+    }
+}
+
+function activateEditMode(todo){
+    //Get Html elements of Name, description
+    document.getElementById("todo-name").value = todo.name;
+    document.getElementById("todo-description").value = todo.description;
+    document.getElementById("todo-id").value = todo.id;
+
+    //Update those html elements with todo.name, todo.description
+    //Unhide the EditButton
+    document.getElementById("edit-btn").style = "";
+}
+
+function editTodo(){
+    var todoId = document.getElementById("todo-id").value;
+
+    var todo = todos.filter(todo => todo.id == todoId)[0];
+
+    todo.name = document.getElementById("todo-name").value;
+    todo.description = document.getElementById("todo-description").value;
+
+    updateHtmlTable();
+
+    clearForm();
+    document.getElementById("edit-btn").style = "display:none";
+}
+
 function deleteEntry(id) {
    console.log(id );
    for (let i = 0; i < todos.length; i++) { 
@@ -144,4 +183,13 @@ function activateDeleteBtns() {
     }
 }
 
-
+function activateEditBtns() {
+    let editBtns = document.getElementsByClassName('edit');
+    
+    for (let i = 0; i < editBtns.length; i++) {
+        let btn = editBtns[i];
+        btn.addEventListener('click',function(){
+            editEntry(btn.id);
+        });
+    }
+}
