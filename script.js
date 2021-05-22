@@ -1,3 +1,5 @@
+
+
 todos = [
     {   id: 1,
         name: 1,
@@ -144,9 +146,13 @@ function activateEditMode(todo){
     //Update those html elements with todo.name, todo.description
     //Unhide the EditButton
     document.getElementById("edit-btn").style = "";
+    document.getElementById("submit-btn").style = "display:none";
 }
 
 function editTodo(){
+    if(!inputValidation2()){
+        return;
+    }
     var todoId = document.getElementById("todo-id").value;
 
     var todo = todos.filter(todo => todo.id == todoId)[0];
@@ -158,6 +164,7 @@ function editTodo(){
 
     clearForm();
     document.getElementById("edit-btn").style = "display:none";
+    document.getElementById("submit-btn").style = "";
 }
 
 function deleteEntry(id) {
