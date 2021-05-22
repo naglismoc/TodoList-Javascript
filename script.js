@@ -172,14 +172,11 @@ function editTodo(){
 
     let todos = JSON.parse( sessionStorage.getItem('data')  ); 
     let todo = {
-        "id": "",
-        "name": "",
-        "description": ""
+        "id": document.getElementById("todo-id").value,
+        "name": document.getElementById("todo-name").value,
+        "description":document.getElementById("todo-description").value
     }
     
-    todo.id = document.getElementById("todo-id").value;
-    todo.name = document.getElementById("todo-name").value;
-    todo.description = document.getElementById("todo-description").value;
     
     for (let i = 0; i < todos.length; i++) {
         if( todos[i].id == todo.id){
