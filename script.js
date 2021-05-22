@@ -19,17 +19,18 @@
 let globalVariable = 5;
 // pass by reference or pass by value;
 
-let id = 3;
+
 updateHtmlTable();
 function updateHtmlTable() {
     let generatedHtml = "";
     let todos = JSON.parse( sessionStorage.getItem('data')  );
     if(todos === null){
         sessionStorage.setItem("data", JSON.stringify( [] ));
+        sessionStorage.setItem("id", "0");
         return;
     }
     for (let i = 0; i < todos.length; i++) {
-        const todo = todos[i];
+        const todo = todos[i]; 
         //let tableRow = `<tr><td>${todo.name}</td><td>${todo.description}</td></tr>`;
         let tableRow = `<tr>
 
@@ -59,21 +60,25 @@ function addNewTodo() {
     if(!inputValidation2()){
         return;
     }
-    id++;
+  
+    let todos = JSON.parse( sessionStorage.getItem('data')  ); 
     
     //1 Get Name from document variable in form
     let nameValue = document.getElementById("todo-name").value;
     //2 Get Description from document variable
     let description = document.getElementById("todo-description").value;
     //3 create todo object with received name and description
+    
+    
     var todo = {
-        id: id,
+        id:  parseInt(sessionStorage.getItem("id")) + 1,
         name: nameValue,
         description: description
     }
+
     //4 add new todo to todoslist
-    let todos = JSON.parse( sessionStorage.getItem('data')  ); 
     todos.push(todo); 
+    sessionStorage.setItem("id", todo.id );
     sessionStorage.setItem("data", JSON.stringify(todos));
     //5 Call UpdateHtmlTable function
     clearForm();
@@ -137,6 +142,8 @@ function isValid(id) {
 }
 
 function editEntry(id){
+    
+    let todos = JSON.parse( sessionStorage.getItem('data')  ); 
     for (let i = 0; i < todos.length; i++) { 
         if( `edit-${todos[i].id}` == id){
             activateEditMode(todos[i]);
@@ -145,6 +152,7 @@ function editEntry(id){
 }
 
 function activateEditMode(todo){
+    console.log(todo);
     //Get Html elements of Name, description
     document.getElementById("todo-name").value = todo.name;
     document.getElementById("todo-description").value = todo.description;
@@ -160,12 +168,26 @@ function editTodo(){
     if(!inputValidation2()){
         return;
     }
-    var todoId = document.getElementById("todo-id").value;
+    
 
-    var todo = todos.filter(todo => todo.id == todoId)[0];
-
+    let todos = JSON.parse( sessionStorage.getItem('data')  ); 
+    let todo = {
+        "id": "",
+        "name": "",
+        "description": ""
+    }
+    
+    todo.id = document.getElementById("todo-id").value;
     todo.name = document.getElementById("todo-name").value;
     todo.description = document.getElementById("todo-description").value;
+    
+    for (let i = 0; i < todos.length; i++) {
+        if( todos[i].id == todo.id){
+            todos[i] = todo; 
+            break;
+        }
+    }
+    sessionStorage.setItem("data", JSON.stringify(todos));
 
     updateHtmlTable();
 
@@ -175,12 +197,16 @@ function editTodo(){
 }
 
 function deleteEntry(id) {
+    
+    let todos = JSON.parse( sessionStorage.getItem('data')  ); 
    for (let i = 0; i < todos.length; i++) { 
        if( todos[i].id == id){
            todos.splice(i,1);
+           break;
        }
-       
    }
+   sessionStorage.setItem("data", JSON.stringify(todos));
+
    updateHtmlTable();
 }
 
