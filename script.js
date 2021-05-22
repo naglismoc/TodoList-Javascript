@@ -24,19 +24,19 @@ function updateHtmlTable() {
         const todo = todos[i];
         //let tableRow = `<tr><td>${todo.name}</td><td>${todo.description}</td></tr>`;
         let tableRow = `<tr>
-                            <td>${todo.name}</td>
-                            <td>${todo.description}</td>`+
-                           `<td><div class="delete btn btn-danger" id="${todo.id}">trinti irasa</div></td>
+        <td>${todo.name}</td>
+        <td>${todo.description}</td>`+
+        `<td><div class="delete btn btn-danger" id="${todo.id}">trinti irasa</div></td>
                             <td>`+
-                               // <div class="delete btn btn-danger" onclick="deleteEntry(${todo.id});">trinti irasa</div>
+                            // <div class="delete btn btn-danger" onclick="deleteEntry(${todo.id});">trinti irasa</div>
                             `</td>
                         </tr>`               
-
+                        
         generatedHtml = generatedHtml + tableRow;
     }
-
+    
     let bodyElement = document.getElementById("tasks-table");
-
+    
     bodyElement.innerHTML = generatedHtml;
     activateDeleteBtns();
 }
