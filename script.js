@@ -1,20 +1,21 @@
 
-
-todos = [
-    {   id: 1,
-        name: 1,
-        description: 'description'
-    },
-    {   id: 2,
-        name: 2,
-        description: 'description'
-    },
-    {   id: 3,
-        name: 3,
-        description: 'description'
-    }
-];
-
+// sessionStorage.setItem("data",        
+// JSON.stringify( [
+//         {   id: 1,
+//             name: 1,
+//             description: 'description'
+//         },
+//         {   id: 2,
+//             name: 2,
+//             description: 'description'
+//         },
+//         {   id: 3,
+//             name: 3,
+//             description: 'description'
+//         }
+//     ] )
+    
+// ); 
 let globalVariable = 5;
 // pass by reference or pass by value;
 
@@ -22,6 +23,11 @@ let id = 3;
 updateHtmlTable();
 function updateHtmlTable() {
     let generatedHtml = "";
+    let todos = JSON.parse( sessionStorage.getItem('data')  );
+    if(todos === null){
+        sessionStorage.setItem("data", JSON.stringify( [] ));
+        return;
+    }
     for (let i = 0; i < todos.length; i++) {
         const todo = todos[i];
         //let tableRow = `<tr><td>${todo.name}</td><td>${todo.description}</td></tr>`;
@@ -54,7 +60,7 @@ function addNewTodo() {
         return;
     }
     id++;
-    console.log(todos);
+    
     //1 Get Name from document variable in form
     let nameValue = document.getElementById("todo-name").value;
     //2 Get Description from document variable
@@ -66,8 +72,9 @@ function addNewTodo() {
         description: description
     }
     //4 add new todo to todoslist
-    todos.push(todo);
-    
+    let todos = JSON.parse( sessionStorage.getItem('data')  ); 
+    todos.push(todo); 
+    sessionStorage.setItem("data", JSON.stringify(todos));
     //5 Call UpdateHtmlTable function
     clearForm();
     updateHtmlTable();
@@ -168,10 +175,8 @@ function editTodo(){
 }
 
 function deleteEntry(id) {
-   console.log(id );
    for (let i = 0; i < todos.length; i++) { 
        if( todos[i].id == id){
-           console.log( todos[i]);
            todos.splice(i,1);
        }
        
